@@ -1,6 +1,6 @@
 # GAMMA-SKS-Caliber-Conversion
 
-A simple change in the configs so the SKS family has the correct damage when converted to 7.62x54R. I took the liberty to change a couple of things:
+A simple change in the configs so the SKS family has the correct damage when converted to 7.62x54R. I also took the liberty to change a couple of things:
 
 1. SKS Molot RPM is 350 (prev 270). Always thought that this gun should be a direct upgrade to grandpa's ol'reliable default SKS, yet for some reason it has 270 RPM.
 
@@ -13,3 +13,4 @@ A simple change in the configs so the SKS family has the correct damage when con
       * bullet_speed +120 m/s
       * hit_impulse is increased to 40 (to be on par with other 7.62R rifles; basically dead enemies ragdoll harder)
       * camera recoil is increased
+      * accuracy is slightly increased (fire_dispersion_base is lower than default value)
