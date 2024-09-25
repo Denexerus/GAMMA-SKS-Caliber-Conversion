@@ -11,4 +11,5 @@ A simple change in the configs so the SKS family has the correct damage when con
   + 2.4 Other minor gun parameters have been adjusted so that it is on par with other 7.62R rifles:
       * fire_distance +100 meters
       * bullet_speed +120 m/s
-      * hit_impulse is increased to 40
+      * hit_impulse is increased to 40 (to be on par with other 7.62R rifles; basically dead enemies ragdoll harder)
+      * camera recoil is increased
