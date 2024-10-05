@@ -1,9 +1,9 @@
-local grok_bo = require("grok_bo")
+--local grok_bo = require("grok_bo")
 
-local original_monster_on_before_hit = grok_bo.monster_on_before_hit
-local original_npc_on_before_hit = grok_bo.npc_on_before_hit
+original_monster_on_before_hit = grok_bo.monster_on_before_hit
+original_npc_on_before_hit = grok_bo.npc_on_before_hit
 
-function grok_bo.monster_on_before_hit()
+grok_bo.monster_on_before_hit = function(self,monster,shit,bone_id)
 	wpn = level.object_by_id(shit.weapon_id)
 	if wpn == nil then 
 		return 
@@ -19,12 +19,10 @@ function grok_bo.monster_on_before_hit()
 	if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
 		grok_bo.wpn_hit_power = 1.1
 	end
-
-	return original_monster_on_before_hit()
+	return original_monster_on_before_hit(self,monster,shit,bone_id)
 end
 
-
-function grok_bo.npc_on_before_hit()
+grok_bo.npc_on_before_hit = function(self,monster,shit,bone_id)
 	wpn = level.object_by_id(shit.weapon_id)
 	if wpn == nil then 
 		return 
@@ -40,9 +38,5 @@ function grok_bo.npc_on_before_hit()
 	if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
 		grok_bo.wpn_hit_power = 1.1
 	end
-
-	return original_npc_on_before_hit()
+	return original_npc_on_before_hit(self,monster,shit,bone_id)
 end
-
---printf(grok_bo.monster_on_before_hit())
---printf(grok_bo.npc_on_before_hit())
