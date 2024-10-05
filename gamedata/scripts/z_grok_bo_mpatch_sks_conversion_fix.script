@@ -2,21 +2,22 @@
 
 original_monster_on_before_hit = grok_bo.monster_on_before_hit
 original_npc_on_before_hit = grok_bo.npc_on_before_hit
-shit = grok_bo.shit
+
+wpn = level.object_by_id(shit.weapon_id)
+if wpn == nil then 
+	return 
+end
+if IsGrenade(wpn) then
+	return
+end
+sec = wpn:section()
+if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan" 
+or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
+	return
+end
 
 grok_bo.monster_on_before_hit = function(self,monster,shit,bone_id)
-	wpn = level.object_by_id(shit.weapon_id)
-	if wpn == nil then 
-		return 
-	end
-	if IsGrenade(wpn) then
-		return
-	end
-	sec = wpn:section()
-	if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan" 
-	or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
-		return
-	end
+	
 	if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
 		wpn_hit_power = 1.1
 	end
@@ -24,18 +25,18 @@ grok_bo.monster_on_before_hit = function(self,monster,shit,bone_id)
 end
 
 grok_bo.npc_on_before_hit = function(self,npc,shit,bone_id)
-	wpn = level.object_by_id(shit.weapon_id)
-	if wpn == nil then 
-		return 
-	end
-	if IsGrenade(wpn) then
-		return
-	end
-	sec = wpn:section()
-	if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan" 
-	or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
-		return
-	end
+	--wpn = level.object_by_id(shit.weapon_id)
+	--if wpn == nil then 
+		--return 
+	--end
+	--if IsGrenade(wpn) then
+		--return
+	--end
+	--sec = wpn:section()
+	--if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan" 
+	--or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
+		--return
+	--end
 	if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
 		wpn_hit_power = 1.1
 	end
