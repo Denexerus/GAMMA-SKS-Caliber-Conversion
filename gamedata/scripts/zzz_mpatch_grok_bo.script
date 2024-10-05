@@ -19,3 +19,6 @@ function grok_bo.npc_on_before_hit()
 
 	return original_npc_on_before_hit()
 end
+
+printf(grok_bo.monster_on_before_hit())
+printf(grok_bo.npc_on_before_hit())
