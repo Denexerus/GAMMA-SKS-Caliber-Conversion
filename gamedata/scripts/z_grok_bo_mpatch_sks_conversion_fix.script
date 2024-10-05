@@ -22,7 +22,7 @@ grok_bo.monster_on_before_hit = function(self,monster,shit,bone_id)
 	return original_monster_on_before_hit(self,monster,shit,bone_id)
 end
 
-grok_bo.npc_on_before_hit = function(self,monster,shit,bone_id)
+grok_bo.npc_on_before_hit = function(self,npc,shit,bone_id)
 	wpn = level.object_by_id(shit.weapon_id)
 	if wpn == nil then 
 		return 
@@ -38,5 +38,5 @@ grok_bo.npc_on_before_hit = function(self,monster,shit,bone_id)
 	if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
 		grok_bo.wpn_hit_power = 1.1
 	end
-	return original_npc_on_before_hit(self,monster,shit,bone_id)
+	return original_npc_on_before_hit(self,npc,shit,bone_id)
 end
