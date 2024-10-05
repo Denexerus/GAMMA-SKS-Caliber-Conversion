@@ -2,6 +2,7 @@
 
 original_monster_on_before_hit = grok_bo.monster_on_before_hit
 original_npc_on_before_hit = grok_bo.npc_on_before_hit
+shit = grok_bo.shit
 
 grok_bo.monster_on_before_hit = function(self,monster,shit,bone_id)
 	wpn = level.object_by_id(shit.weapon_id)
