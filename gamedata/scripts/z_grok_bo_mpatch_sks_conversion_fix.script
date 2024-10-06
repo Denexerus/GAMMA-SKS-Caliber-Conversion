@@ -1,14 +1,14 @@
 --local grok_bo = require("grok_bo")
 
-original_monster_on_before_hit = monster_on_before_hit
-original_npc_on_before_hit = npc_on_before_hit
+local original_monster_on_before_hit = grok_bo.monster_on_before_hit
+local original_npc_on_before_hit = grok_bo.npc_on_before_hit
 
-function monster_on_before_hit(monster, shit, bone_id)
-	original_monster_on_before_hit(monster, shit, bone_id)
+function grok_bo.monster_on_before_hit(monster, shit, bone_id, flags)
+	original_monster_on_before_hit(monster, shit, bone_id, flags)
 	
 	local wpn = level.object_by_id(shit.weapon_id)
 	if wpn and wpn:section() then
-        	local sec = wpn:section()
+        local sec = wpn:section()
 
 		if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
 			local wpn_hit_power = ui_wpn_params.read_float(sec, "", "hit_power")
@@ -16,14 +16,16 @@ function monster_on_before_hit(monster, shit, bone_id)
 			printf('Weapon SKS upgrade detected: Hit power set to %s', wpn_hit_power)
 		end
 	end
+	
+	return original_monster_on_before_hit(monster, shit, bone_id, flags)
 end
 
-function npc_on_before_hit(npc, shit, bone_id)
-	original_npc_on_before_hit(npc, shit, bone_id)
+function grok_bo.npc_on_before_hit(npc, shit, bone_id, flags)
+	original_npc_on_before_hit(npc, shit, bone_id, flags)
 	
 	local wpn = level.object_by_id(shit.weapon_id)
 	if wpn and wpn:section() then
-        	local sec = wpn:section()
+        local sec = wpn:section()
 
 		if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
 			local wpn_hit_power = ui_wpn_params.read_float(sec, "", "hit_power")
@@ -31,4 +33,6 @@ function npc_on_before_hit(npc, shit, bone_id)
 			printf('Weapon SKS upgrade detected: Hit power set to %s', wpn_hit_power)
 		end
 	end
+	
+	return original_npc_on_before_hit(npc, shit, bone_id, flags)
 end
