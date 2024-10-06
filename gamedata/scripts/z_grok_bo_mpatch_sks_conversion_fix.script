@@ -19,7 +19,7 @@ function monster_on_before_hit(monster, shit, bone_id)
 end
 
 function npc_on_before_hit(npc, shit, bone_id)
-	original_npc_on_before_hit(monster, shit, bone_id)
+	original_npc_on_before_hit(npc, shit, bone_id)
 	
 	local wpn = level.object_by_id(shit.weapon_id)
 	if wpn and wpn:section() then
