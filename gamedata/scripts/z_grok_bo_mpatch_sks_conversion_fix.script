@@ -1,43 +1,34 @@
-local grok_bo = require("grok_bo")
+--local grok_bo = require("grok_bo")
 
-original_monster_on_before_hit = grok_bo.monster_on_before_hit
-original_npc_on_before_hit = grok_bo.npc_on_before_hit
+original_monster_on_before_hit = monster_on_before_hit
+original_npc_on_before_hit = npc_on_before_hit
 
-grok_bo.monster_on_before_hit = function(self, monster, shit, bone_id, nil)
-	wpn = level.object_by_id(shit.weapon_id)
-	if wpn == nil then 
-		return 
-	end
-	if IsGrenade(wpn) then
-		return
-	end
-	sec = wpn:section()
-	if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan" 
-	or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
-		return
-	end
+function monster_on_before_hit(monster, shit, bone_id)
+	original_monster_on_before_hit(monster, shit, bone_id)
 	
-	if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
-		wpn_hit_power = 1.1
+	local wpn = level.object_by_id(shit.weapon_id)
+	if wpn and wpn:section() then
+        	local sec = wpn:section()
+
+		if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
+			local wpn_hit_power = ui_wpn_params.read_float(sec, "", "hit_power")
+			wpn_hit_power = 1.1
+			printf('Weapon SKS upgrade detected: Hit power set to %s', wpn_hit_power)
+		end
 	end
-	return original_monster_on_before_hit(self, monster, shit, bone_id, nil)
 end
 
-grok_bo.npc_on_before_hit = function(self, npc, shit, bone_id, nil)
-	wpn = level.object_by_id(shit.weapon_id)
-	sec = wpn:section()
-	if sec == "explosive_barrel" or sec == "explosive_barrel_low" or sec == "explosive_tank" or sec == "explosive_grenade" or sec == "explosive_hide" or sec == "explosive_particle" or sec == "explosive_fuelcan" 
-	or sec == "explosive_mobiltank" or sec == "explosive_dinamit" then
-		return
+function npc_on_before_hit(npc, shit, bone_id)
+	original_npc_on_before_hit(monster, shit, bone_id)
+	
+	local wpn = level.object_by_id(shit.weapon_id)
+	if wpn and wpn:section() then
+        	local sec = wpn:section()
+
+		if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
+			local wpn_hit_power = ui_wpn_params.read_float(sec, "", "hit_power")
+			wpn_hit_power = 1.1
+			printf('Weapon SKS upgrade detected: Hit power set to %s', wpn_hit_power)
+		end
 	end
-	if IsGrenade(wpn) then
-		return
-	end
-	if wpn == nil then 
-		return 
-	end
-	if string.find(sec, "wpn_sks.*") and utils_item.has_this_upgrade(wpn, sec, "up_firstf_sks") then
-		wpn_hit_power = 1.1
-	end
-	return original_npc_on_before_hit(self, npc, shit, bone_id, nil)
 end
